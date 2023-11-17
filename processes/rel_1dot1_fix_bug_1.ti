@@ -2,7 +2,7 @@
 #****Begin: Generated Statements***
 #****End: Generated Statements****
 
-ProcessError();
+ProcessBreak();
 #endregion
 #region Metadata
 #****Begin: Generated Statements***
