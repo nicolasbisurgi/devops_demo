@@ -16,6 +16,7 @@ ExecuteProcess('}bedrock.server.wait',
   'pLogOutput',0,
   'pStrictErrorHandling',0,
   'pWaitSec',3);
+ExecuteProcess('rel_1dot1_fix_bug_1');
 #endregion
 #region Metadata
 #****Begin: Generated Statements***

@@ -1,0 +1,12 @@
+{
+	"@type":"Process",
+	"Name":"rel_1dot1_fix_bug_1",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"rel_1dot1_fix_bug_1.ti",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":[],
+	"Variables":[]
+}
