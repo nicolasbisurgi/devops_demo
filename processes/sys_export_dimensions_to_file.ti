@@ -1,0 +1,58 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+ExecuteProcess('}bedrock.server.savedataall',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0);
+
+# define source directories
+sDataDir = GetProcessErrorFileDirectory() | '..\data';
+sMetadataPath = sDataDir | '\source_files\dimensions';
+
+# create source_files directories
+ExecuteProcess('}bedrock.server.executecommand',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0,
+  'pCommand','mkdir ' | sMetadataPath,
+  'pWait',1,
+  'pPowerShell',0);
+
+# export hierarchies and attributes
+sDimName='}Dimensions';
+n = 1;
+# loop through all dimensions
+While(n <= DimSiz(sDimName));
+  sElName = DimNm(sDimName, n);
+  if(Scan('}',sElName) = 0);
+    # export only non-control dimensions with attributes
+    if(CubeExists('}ElementAttributes_' | sElName) = 1);
+      ExecuteProcess('}bedrock.hier.export',
+        'pLogOutput',0,
+        'pStrictErrorHandling',0,
+        'pDim',sElName,
+        'pHier','',
+        'pTgtDir',sMetadataPath,
+        'pTgtFile',sElName | '.csv',
+        'pTitleRecord',1,
+        'pDelim',',',
+        'pQuote','"',
+        'pLegacy',0,
+        'pCharacterSet','');
+    endif;
+  endif;
+  n = n + 1;
+End;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

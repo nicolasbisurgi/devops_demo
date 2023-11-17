@@ -1,0 +1,86 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+ExecuteProcess('}bedrock.server.savedataall',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0);
+
+# define source directories
+sDataDir = GetProcessErrorFileDirectory() | '..\data';
+sDataPath = sDataDir | '\source_files\cubes';
+sRulePath = sDataPath | '\rules';
+sRulesFiles = sDataDir | '\*.RUX';
+sDimensionalityFile = sDataPath | '\cubes_dimensionality.csv';
+
+# create source_files directories
+ExecuteProcess('}bedrock.server.executecommand',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0,
+  'pCommand','mkdir ' | sDataPath,
+  'pWait',1,
+  'pPowerShell',0);
+ExecuteProcess('}bedrock.server.executecommand',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0,
+  'pCommand','mkdir ' | sRulePath,
+  'pWait',1,
+  'pPowerShell',0);
+
+
+# export data
+ASCIIOutput(sDimensionalityFile, 'cube_name', 'dimensionality');
+sDimName='}Cubes';
+n = 1;
+# loop through all cubes
+While(n <= DimSiz(sDimName));
+  sElName = DimNm(sDimName, n);
+  if(Scan('}',sElName) = 0);
+    
+    # export dimensionality
+    sCubeName = sElName;
+    vDimensionality = '';
+    j = 1;
+    nMax = CubeDimensionCountGet( sCubeName );
+    While( j <= nMax );
+      vDimName = TabDim( sCubeName, j );
+      vDimensionality = vDimensionality | vDimName | '&';
+      j = j + 1;
+    End;
+    vDimensionality = Delet(vDimensionality,Long(vDimensionality),1);
+    ASCIIOutput(sDimensionalityFile, sCubeName, vDimensionality);
+  EndIf;
+  n = n + 1;
+End;
+
+# export rules
+sDimName = '}Cubes';
+nMax = DimSiz( sDimName );
+n = 1;
+While( n <= nMax );
+  vCube = DimNm( sDimName, n );
+  If (FileExists(sDataDir | '\' | vCube | '.RUX') = 1
+    & Scan('}', vCube) = 0);
+    cmd = 'copy ' | sDataDir | '\' | vCube | '.RUX ' | sRulePath | '\' | vCube | '.RUX';
+    ExecuteProcess('}bedrock.server.executecommand',
+      'pLogOutput',1,
+      'pStrictErrorHandling',0,
+      'pCommand',cmd,
+      'pWait',1,
+      'pPowerShell',0);
+  EndIf;
+  n = n + 1;
+End;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

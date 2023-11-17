@@ -1,0 +1,66 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+# define source directories
+sDataDir = GetProcessErrorFileDirectory() | '..\data';
+sDataPath = sDataDir | '\source_files\data';
+
+sDataFiles = sDataPath | '\*.csv';
+
+# import data
+sStrFile = WildcardFileSearch (sDataFiles, '');
+while ( sStrFile @<> '');
+  vCube = Delet(sStrFile,Long(sStrFile)-3,4);
+  ExecuteProcess('}bedrock.cube.data.import',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0,
+  'pCube',vCube,
+  'pSrcDir',sDataPath,
+  'pSrcFile',sStrFile,
+  'pDim','',
+  'pSrcEle','',
+  'pTgtEle','',
+  'pTitleRows',1,
+  'pDelim',',',
+  'pQuote','"',
+  'pDecimalSeparator','.',
+  'pThousandSeparator',',',
+  'pCumulate',0,
+  'pCubeLogging',0,
+  'pSandbox','',
+  'pZeroFilter',0,
+  'pMappingToNewDims','',
+  'pDimDelim','&',
+  'pEleStartDelim','¦',
+  'pEleDelim','+',
+  'pCharacterSet','TM1CS_UTF8',
+  'pFileDelete',0,
+  'pSkipInvalidRecords',0);
+  sStrFile = WildcardFileSearch ( sDataFiles, sStrFile );
+end;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+# sort attributes
+ExecuteProcess('}bedrock.dim.sort',
+  'pCompSortType','',
+  'pCompSortSense','',
+  'pElSortType','ByName',
+  'pElSortSense','Ascending');
+  
+# save data
+ExecuteProcess('}bedrock.server.savedataall',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0);
+#endregion
