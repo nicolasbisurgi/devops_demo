@@ -1,0 +1,33 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+
+# Here we should execute all processes that would be required to ensure that
+# after any code changes (i.e.: bugfixes, enhancements, new features, etc.)
+# the performance of the system is still acceptable.
+# The duration of this process should be onpar with prior durations or even faster;
+# unless there's a specific change that lowers down the performance.
+
+# This could be done by calling TI Processes or even by calling external 
+# programs (i.e.: RushTI, DataSync, etc.).
+
+# This process should be part of the tm1project on any PERF/QA/UAT deployment
+
+ExecuteProcess('}bedrock.server.wait',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0,
+  'pWaitSec',5);
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

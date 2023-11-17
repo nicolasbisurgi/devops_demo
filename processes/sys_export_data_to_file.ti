@@ -1,0 +1,74 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+ExecuteProcess('}bedrock.server.savedataall',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0);
+
+# define source directories
+sDataDir = GetProcessErrorFileDirectory() | '..\data';
+sDataPath = sDataDir | '\source_files\data';
+
+# create source_files directories
+ExecuteProcess('}bedrock.server.executecommand',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0,
+  'pCommand','mkdir ' | sDataPath,
+  'pWait',1,
+  'pPowerShell',0);
+
+# export data
+sDimName='}Cubes';
+n = 1;
+# loop through all cubes
+While(n <= DimSiz(sDimName));
+  sElName = DimNm(sDimName, n);
+  if(Scan('}',sElName) = 0);
+    
+    # export non-control cube data
+    ExecuteProcess('}bedrock.cube.data.export',
+      'pLogoutput',0,
+      'pStrictErrorHandling',0,
+      'pCube',sElName,
+      'pView','',
+      'pFilter','',
+      'pFilterParallel','',
+      'pParallelThreads',0,
+      'pDimDelim','&',
+      'pEleStartDelim','¦',
+      'pEleDelim','+',
+      'pSuppressZero',1,
+      'pSuppressConsol',1,
+      'pSuppressRules',1,
+      'pSuppressConsolStrings',0,
+      'pZeroSource',0,
+      'pCubeLogging',0,
+      'pTemp',1,
+      'pFilePath',sDataPath,
+      'pFileName',sElName | '.csv',
+      'pDelim',',',
+      'pDecimalSeparator','.',
+      'pThousandSeparator',',',
+      'pQuote','"',
+      'pTitleRecord',1,
+      'pSandbox','',
+      'pSubN',0,
+      'pCharacterSet','',
+      'pCubeNameExport',1);
+    endif;
+  n = n + 1;
+End;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

@@ -1,0 +1,37 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+# Here we will place post deployment steps
+# This process is expected to change on each deployment/release depending on 
+# what each deployment/release needs, i.e.:
+
+# release 1.0:
+#ExecuteProcess('sys_1dot0_create_subsets');
+
+# release 1.1:
+#ExecuteProcess('sys_1dot1_fix_bug_123');
+
+# release 1.2:
+#ExecuteProcess('sys_1dot2_fix_bug_456');
+
+# release 2.0:
+#ExecuteProcess('sys_2dot0_create_new_cubes');
+
+ExecuteProcess('}bedrock.server.wait',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0,
+  'pWaitSec',5);
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion

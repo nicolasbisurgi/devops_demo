@@ -1,0 +1,12 @@
+{
+	"@type":"Process",
+	"Name":"sys_export_data_to_file",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"sys_export_data_to_file.ti",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":[],
+	"Variables":[]
+}

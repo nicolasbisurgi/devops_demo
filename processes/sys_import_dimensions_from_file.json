@@ -1,0 +1,12 @@
+{
+	"@type":"Process",
+	"Name":"sys_import_dimensions_from_file",
+	"HasSecurityAccess":false,
+	"Code@Code.link":"sys_import_dimensions_from_file.ti",
+	"DataSource":
+	{
+		"Type":"None"
+	},
+	"Parameters":[],
+	"Variables":[]
+}

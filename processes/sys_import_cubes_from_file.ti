@@ -1,0 +1,62 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+# define source directories
+sDataDir = GetProcessErrorFileDirectory() | '..\data';
+sCubesPath = sDataDir | '\source_files\cubes';
+sRulePath = sCubesPath | '\rules';
+sRulesFiles = sRulePath | '\*.RUX';
+sDimensionalityFile = sCubesPath | '\cubes_dimensionality.csv';
+
+# Check for source file:
+if(FileExists(sDimensionalityFile) = 1);
+  # Define data source for cube build-up
+  DataSourceType ='CHARACTERDELIMITED';
+  DatasourceNameForServer = sDimensionalityFile;
+  DatasourceASCIIHeaderRecords = 1;
+  DatasourceASCIIDelimiter=',';
+else;
+  ProcessBreak;
+endif;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+ExecuteProcess('}bedrock.cube.create',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0,
+  'pCube',vcube_name,
+  'pDims',vdimensionality,
+  'pRecreate',0,
+  'pDelim','&');
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+# import rules
+sStrFile = WildcardFileSearch (sRulesFiles, '');
+while ( sStrFile @<> '');
+  vCube = Delet(sStrFile,Long(sStrFile)-3,4);
+  ExecuteProcess('}bedrock.cube.rule.manage',
+    'pLogOutput',0,
+    'pStrictErrorHandling',0,
+    'pCube',vCube,
+    'pMode','Load',
+    'pFileName',sStrFile,
+    'pDelim','&',
+    'pPath',sRulePath);
+  sStrFile = WildcardFileSearch ( sRulesFiles, sStrFile );
+end;
+  
+# save data
+ExecuteProcess('}bedrock.server.savedataall',
+  'pLogOutput',0,
+  'pStrictErrorHandling',0);
+#endregion

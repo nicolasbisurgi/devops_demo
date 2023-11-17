@@ -1,0 +1,44 @@
+#region Prolog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+
+# define source directories
+sDataDir = GetProcessErrorFileDirectory() | '..\data';
+sDimensionsPath = sDataDir | '\source_files\dimensions';
+
+sDimensionsFiles = sDimensionsPath | '\*.csv';
+
+# import metadata
+sStrFile = WildcardFileSearch (sDimensionsFiles, '');
+while ( sStrFile @<> '');
+  # avoid temp files and dimensionality file
+  if (Scan('$',sStrFile) = 0);
+    vDim = Delet(sStrFile,Long(sStrFile)-3,4);
+    ExecuteProcess('}bedrock.hier.import',
+      'pLogOutput',0,
+      'pStrictErrorHandling',0,
+      'pDim',vDim,
+      'pHier','',
+      'pSrcDir',sDimensionsPath,
+      'pSrcFile',sStrFile,
+      'pDelim',',',
+      'pQuote','"',
+      'pLegacy',0,
+      'pUnwind',1,
+      'pConsol','*');
+  endif;
+  sStrFile = WildcardFileSearch ( sDimensionsFiles, sStrFile );
+end;
+#endregion
+#region Metadata
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Data
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
+#region Epilog
+#****Begin: Generated Statements***
+#****End: Generated Statements****
+#endregion
